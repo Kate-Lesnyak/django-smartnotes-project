@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        SmartNotes!
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <header class="bg-dark">
+        <nav class=" navbar-dark bg-dark p-4 container">
+            <ul class="m-0 list-unstyled d-flex justify-content-between align-items-center">
+                <li>
+                    <a href="{% url 'home' %}" class="btn btn-outline-light">Home</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'note_new' %}" class="btn btn-outline-light">Create</a>
+                </li>
+                <div class="d-flex align-items-center gap-3">
+                    <li>
+                        <a class="link-light" href="{% url 'user:profile' %}"><b>{{ user.username }}</b></a>
+                    </li>
+                    <li>
+                        {% include 'includes/logout.html' %}
+                    </li>
+                </div>
+                {% else %}
+                <div class="d-flex align-items-center gap-3">
+                    <li>
+                        <a class="link-light" href="{% url 'user:profile' %}"><b>Guest</b></a>
+                    </li>
+                    <li><a href="{% url 'login' %}" class="btn btn-outline-light">Login</a></li>
+                    <li> <a href="{% url 'user:create_user' %}" class="btn btn-outline-light">Registration</a></li>
+                </div>
+                {% endif %}
+
+            </ul>
+        </nav>
+    </header>
+    <main class="my-5 text-center container">
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        {% block footer %}
+        <p class="text-muted text-center"><small>Catharina 2025 ©</small></p>
+        {% endblock %}
+    </footer>
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>

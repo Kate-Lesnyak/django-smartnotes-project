@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<form method="POST" style='margin: 0 auto; width: 600px;' novalidate>
+    {% csrf_token %}
+    {{form|crispy }}
+    <button type="submit" class="btn btn-primary my-5">Submit</button>
+</form>
+
+{% if form.errors %}
+<ul class="alert alert-danger my-5 list-unstyled d-flex flex-column gap-2 ">
+    <li>{{form.errors.title.as_text}}</li>
+    <li> {{form.errors.text.as_text}}</li>
+</ul>
+{% endif %}
+
+<a href="javascript:history.back()" class="btn btn-secondary">Cancel</a>
+
+{% endblock %}

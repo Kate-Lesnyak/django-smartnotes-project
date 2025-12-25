@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{form|crispy }}
+    <p>Are you sure you want to delete "{{ note.title }}"?</p>
+    <p>This action can't be undone.</p>
+
+    <button type="submit" class="btn btn-danger">Confirm</button>
+    <a href="javascript:history.back()" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

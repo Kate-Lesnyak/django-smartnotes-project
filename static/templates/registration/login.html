@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+User login
+{% endblock %}
+
+{% block content %}
+<h2>Login</h2>
+<hr>
+<form method="post" style='margin: 0 auto; width: 600px;'>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-secondary">Login</button>
+    <input type="hidden" name="next" value="{% url 'home' %}">
+</form>
+<p>
+    <a href="{% url 'user:create_user' %}">Create user</a><br>
+    <a href="{% url 'user:profile' %}">Profile</a><br>
+    <a href="{% url 'password_reset' %}">Forgot password?</a>
+</p>
+{% endblock %}

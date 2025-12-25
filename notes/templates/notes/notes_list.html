@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="my-5">These are the notes:</h2>
+
+<ul class="row row-col3 g-2 list-unstyled">
+    {% for note in notes %}
+    <li class="col">
+        <div class="p-3 border">
+            {% if note.is_public %}
+            <span class="badge bg-secondary">Public</span>
+            <a href="{% url 'note_share' pk=note.id %}" class="text-dark text-decoration-none">
+                <h4>{{ note.title }}</h4>
+            </a>
+            {% else %}
+            <a href="{% url 'note_detail' pk=note.id %}" class="text-dark text-decoration-none">
+                <h4>{{ note.title }}</h4>
+            </a>
+            {% endif %}
+            <p>{{note.text | truncatechars:15}}</p>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
